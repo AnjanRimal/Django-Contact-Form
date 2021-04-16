@@ -1,0 +1,281 @@
+{% load static %}
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Contact Us</title>
+   <link rel="stylesheet" type="text/css" href="{%static 'css/style.css' %}">
+   <link rel="stylesheet" type="text/css" href="{%static 'css/mobile.css' %}">
+   <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+</head>
+<body>
+      <header id="home">
+         <nav>
+            <div class="menu">
+               <ul>
+                  <li>
+                     <a href="#home">Home</a>
+                     <a href="#about">About</a>
+                     <a href="#" class="button1" id="button1">Contact</a>
+                  </li>
+
+               </ul>
+            </div>
+
+         </nav>
+
+
+       </header>
+
+
+   <div class="container">
+      <h1>Contact Us</h1>
+      <form action="" method="POST" class="contact">
+         {% csrf_token %}
+      <form id="registration_form">
+         <img src="my_proj_static/css/close.png" alt="close" class="close">
+         <div>
+            <input type="text" class="input-field" id="form_fname" name="fname" required="" placeholder="First Name">
+            <span class="error_form" id="fname_error_message"></span>
+
+         </div>
+         <div>
+            <input type="text" class="input-field" id="form_sname" name="sname" required="" placeholder="Last Name">
+            <span class="error_form" id="sname_error_message"></span>
+
+         </div>
+         <div>
+            <input type="email" class="input-field" id="form_email" name="email" required="" placeholder="Email">
+            <span class="error_form" id="email_error_message"></span>
+
+         </div>
+
+         <div>
+             <input type="text" class="input-field" id="form_oname" name="organization" required="" placeholder="Organization Name">
+            <span class="error_form" id="oname_error_message"></span>
+
+         </div>
+         <div>
+             <input type="text" class="input-field" id="form_phone" name="phone" required="" placeholder="Phone No">
+            <span class="error_form" id="phone_error_message"></span>
+
+         </div>
+
+         <div>
+            <select id="dropdown">
+            <option value="Country">Select Country</option>
+            <option value="Nepal">Nepal</option>
+            <option value="India">India</option>
+            <option value="China">China</option>
+            <option value="UK">UK</option>
+            </select>
+
+         </div>
+
+         <div>
+            <select id="dropdown">
+            <option value="Area Of Interest">Area Of Interest</option>
+            <option value="Frontend">Frontend</option>
+            <option value="Backend">Backend</option>
+            </select>
+         </div>
+         <div>
+            <textarea type="text" class="textarea-field" placeholder="Your Message" id="form_tarea" name="message" required=""></textarea>
+            <span class="error_form" id="tarea_error_message"></span>
+         </div>
+
+         <div>
+
+         <input type="checkbox" id="form_terms" name="terms"  value="yes">
+         <label for="terms"> I agree the information i provide will be governed by Monotype's Privacy Policy</label><br>
+
+
+         </div>
+
+
+         <input type="submit" value="Get Started" name="submit">
+         </form>
+      </form>
+      </form>
+   </div>
+
+   <script type="text/javascript">
+      $(function() {
+
+         $("#fname_error_message").hide();
+         $("#sname_error_message").hide();
+         $("#email_error_message").hide();
+         $("#oname_error_message").hide();
+         $("#phone_error_message").hide();
+         $("#tarea_error_message").hide();
+         $("#terms_error_message").hide();
+
+
+         var error_fname = false;
+         var error_sname = false;
+         var error_email = false;
+         var error_oname = false;
+         var error_phone = false;
+         var error_tarea = false;
+         var error_terms = false;
+
+
+
+         $("#form_fname").focusout(function(){
+            check_fname();
+         });
+         $("#form_sname").focusout(function() {
+            check_sname();
+         });
+         $("#form_email").focusout(function() {
+            check_email();
+         });
+         $("#form_oname").focusout(function() {
+            check_oname();
+         });
+         $("#form_phone").focusout(function() {
+            check_phone();
+         });
+         $("#form_tarea").focusout(function() {
+            check_tarea();
+         });
+
+         $("#form_terms").focusout(function() {
+            check_terms();
+         });
+
+
+
+         function check_fname() {
+            var pattern = /^[a-zA-Z]*$/;
+            var fname = $("#form_fname").val();
+            if (pattern.test(fname) && fname !== '') {
+               $("#fname_error_message").hide();
+               $("#form_fname").css("border-bottom","1px solid #1B4F72");
+            } else {
+               $("#fname_error_message").html("Should contain only Characters");
+               $("#fname_error_message").show();
+               $("#form_fname").css("border-bottom","1px solid #F90A0A");
+               error_fname = true;
+            }
+         }
+
+         function check_sname() {
+            var pattern = /^[a-zA-Z]*$/;
+            var sname = $("#form_sname").val()
+            if (pattern.test(sname) && sname !== '') {
+               $("#sname_error_message").hide();
+               $("#form_sname").css("border-bottom","1px solid #1B4F72");
+            } else {
+               $("#sname_error_message").html("Should contain only Characters");
+               $("#sname_error_message").show();
+               $("#form_sname").css("border-bottom","1px solid #F90A0A");
+               error_fname = true;
+            }
+         }
+
+         function check_email() {
+            var pattern = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+            var email = $("#form_email").val();
+            if (pattern.test(email) && email !== '') {
+               $("#email_error_message").hide();
+               $("#form_email").css("border-bottom","1px solid #1B4F72");
+            } else {
+               $("#email_error_message").html("Invalid Email");
+               $("#email_error_message").show();
+               $("#form_email").css("border-bottom","1px solid #F90A0A");
+               error_email = true;
+            }
+         }
+
+
+         function check_oname() {
+            var pattern = /^[a-zA-Z]*$/;
+            var oname = $("#form_oname").val();
+            if (pattern.test(oname) && oname !== '') {
+               $("#oname_error_message").hide();
+               $("#form_oname").css("border-bottom","1px solid #1B4F72");
+            } else {
+               $("#oname_error_message").html("Should contain only Characters");
+               $("#oname_error_message").show();
+               $("#form_oname").css("border-bottom","1px solid #F90A0A");
+               error_oname = true;
+            }
+         }
+
+
+        function check_phone() {
+            var pattern = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
+            var phone = $("#form_phone").val();
+            if (pattern.test(phone) && phone !== '') {
+               $("#phone_error_message").hide();
+               $("#form_phone").css("border-bottom","1px solid #1B4F72");
+            } else {
+               $("#phone_error_message").html("Invalid phone no");
+               $("#phone_error_message").show();
+               $("#form_phone").css("border-bottom","1px solid #F90A0A");
+               error_phone = true;
+            }
+         }
+
+
+
+         function check_tarea() {
+            var pattern = /^[a-zA-Z0-9_]*$/;
+            var tarea = $("#form_tarea").val();
+            if (pattern.test(tarea) && tarea !== '') {
+               $("#tarea_error_message").hide();
+               $("#form_tarea").css("border-bottom","1px solid #1B4F72");
+            } else {
+               $("#tarea_error_message").html("Enter Your Message");
+               $("#tarea_error_message").show();
+               $("#form_tarea").css("border-bottom","1px solid #F90A0A");
+               error_tarea = true;
+            }
+         }
+
+
+         $("#registration_form").submit(function() {
+            error_fname = false;
+            error_sname = false;
+            error_email = false;
+            error_oname= false;
+            error_phone = false;
+            error_tarea = false;
+
+            check_fname();
+            check_sname();
+            check_email();
+            check_oname();
+            check_phone();
+            check_tarea();
+
+            if (error_fname === false && error_sname === false && error_email === false && error_oname === false && error_phone === false && error_tarea === false ) {
+               alert("Registration Successfull");
+               return true;
+            } else {
+               alert("Please Fill the form Correctly");
+               return false;
+            }
+
+
+         });
+      });
+
+      document.getElementById("button1").addEventListener("click",function(){
+         document.querySelector(".container").style.display = "inline";
+         })
+      document.querySelector(".close").addEventListener("click",function(){
+
+      document.querySelector(".container").style.display ="none";
+      })
+
+
+
+
+
+   </script>
+
+</body>
+</html>
